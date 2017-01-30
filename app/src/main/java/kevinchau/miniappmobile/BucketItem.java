@@ -13,9 +13,9 @@ public class BucketItem {
     private String mDescription;
     private double mLatitude;
     private double mLongitude;
-    private int mDate;
+    private long mDate;
 
-    public BucketItem(String name, String description, double latitude, double longitude, int date) {
+    public BucketItem(String name, String description, double latitude, double longitude, long date) {
 
         mName = name;
         mDescription = description;
@@ -49,7 +49,7 @@ public class BucketItem {
 
     }
 
-    public int getDate() {
+    public long getDate() {
 
         return mDate;
 
