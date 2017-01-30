@@ -9,14 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Serializable{
 
     ArrayList<BucketItem> bucketlist;
     RecyclerView rvBucket;
-
+    static final int requestCode = 1;
+    //Request code for intent
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("UVa Bucket List");
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Initialize bucket list
-        bucketlist = BucketItem.createBucketList(10);
+        bucketlist = BucketItem.createBucketList(4);
 
         // Create adapter passing in the sample user data
         BucketAdapter adapter = new BucketAdapter(this, bucketlist);
@@ -41,15 +44,26 @@ public class MainActivity extends AppCompatActivity {
 
         GoToNewActivity.setOnClickListener(new View.OnClickListener() {
 
-            @Override
             public void onClick(View v) {
 
-                // Intent code for open new activity through intent.
-
-                Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
-                startActivity(intent);
+                    Intent addItemIntent = new Intent(MainActivity.this, AddItemActivity.class);
+                    startActivityForResult(addItemIntent, requestCode);
 
             }
         });
+
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent result) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+
+                BucketItem item =(BucketItem) result.getExtras().getSerializable("i");
+                bucketlist.add(item); //not returning an actual object why?
+                rvBucket.getAdapter().notifyDataSetChanged();
+            }
+        }
+    }
+
 }

@@ -11,53 +11,67 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.content.Intent;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 
+import java.io.Externalizable;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AddItemActivity extends AppCompatActivity{
-    ArrayList<BucketItem> bucketlist = new ArrayList<BucketItem>();
+import static android.R.attr.name;
+
+public class AddItemActivity extends AppCompatActivity implements Serializable {
+    BucketItem item;
     EditText nameField;
     EditText descField;
     EditText latNum;
     EditText longNum;
     CalendarView calendar;
-    RecyclerView rvBuckets;
+    Button save;
     long calDate;
     //Creates objects for all the items in the layout
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        descField = (EditText)findViewById(R.id.descriptionText);
-        nameField = (EditText)findViewById(R.id.nameText);
-        latNum = (EditText)findViewById(R.id.latText);
-        longNum = (EditText)findViewById(R.id.longText);
-        calendar = (CalendarView)findViewById(R.id.calendarView);
-        super.onCreate(savedInstanceState);
-        //rvBuckets= (RecyclerView) findViewById(R.id.rvBuckets); <--- look at this
-        //look up how to use recycler view on differnt layout/screen.
         setTitle("Add New Item");
-        setContentView(R.layout.itemactivity_main);
         //sets layout view to the proper screen, and instantiates objects.
-        bucketlist = BucketItem.createBucketList(1);
-        //creates bucketlist to add to main screen.
-        saveNewItem(nameField, descField, latNum, longNum, calendar);
-        //creates bucketitem
+        setContentView(R.layout.itemactivity_main);
+        save = (Button)findViewById(R.id.saveNewItemButton);
+        save.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                descField = (EditText)findViewById(R.id.descriptionText);
+                nameField = (EditText)findViewById(R.id.nameText);
+                latNum = (EditText)findViewById(R.id.latText);
+                longNum = (EditText)findViewById(R.id.longText);
+                calendar = (CalendarView)findViewById(R.id.calendarView);
+                calDate = calendar.getDate(); // fix this so that date is fixed right now it just gets current. see website pages
+                String value= latNum.getText().toString();
+                int latVal =Integer.parseInt(value);
+                String value2 = longNum.getText().toString();
+                int lonVal =Integer.parseInt(value2);
+                //turns calendar date and lat/lon values to integers/long
+                item = new BucketItem(nameField.getText().toString(), descField.getText().toString(), latVal, lonVal, calDate);
+
+                int resultCode = RESULT_OK;
+                Intent addItemIntent = new Intent(AddItemActivity.this, MainActivity.class);
+                addItemIntent.putExtra( "i" , item);
+                setResult(resultCode, addItemIntent);
+                finish();
+
+            }
+        });
 
 
     }
-    // Called when you tap the Save New Item Button
-    public void saveNewItem(EditText name, EditText desc, EditText lat, EditText lon, CalendarView cal) {
-        calDate = calendar.getDate();
-        String value= lat.getText().toString();
-        int latVal =Integer.parseInt(value);
-        String value2 = lon.getText().toString();
-        int lonVal =Integer.parseInt(value);
-        //turns calendar date and lat/lon values to integers/long
-        bucketlist.add(new BucketItem(name.toString(), desc.toString(), latVal, lonVal, calDate));
-        // Get the adapter that manages the data set and let it know something new was added
-        rvBuckets.getAdapter().notifyDataSetChanged();
-        }
-    }
 
-}
+    //@Override
+    //public void onBackPressed() {
+        //Intent intent = new Intent();
+        //intent.putExtra("no", 1);
+        //setResult(RESULT_CANCELED, intent);
+       // super.onBackPressed();
+
+    //}
+    }

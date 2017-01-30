@@ -11,11 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="kevinchau.miniappmobile.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,10 +24,8 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/FAB"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginBottom="112dp"
-        android:id="@+id/rvBucket" />
+        android:id="@+id/rvBucket"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

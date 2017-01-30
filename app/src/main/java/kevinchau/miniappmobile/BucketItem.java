@@ -1,13 +1,11 @@
 package kevinchau.miniappmobile;
 
-/**
- * Created by Brittany Crow on 1/28/2017.
- */
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.io.Serializable;
 
-public class BucketItem {
+public class BucketItem implements Serializable {
 
     private String mName;
     private String mDescription;
@@ -55,14 +53,14 @@ public class BucketItem {
 
     }
 
-    private static int lastItemId = 0;
+    private static int lastItemId = 3; //3 cause 3 items already in
 
     public static ArrayList<BucketItem> createBucketList(int numItems) {
 
         ArrayList<BucketItem> bucketlist = new ArrayList<BucketItem>();
 
         Calendar c = Calendar.getInstance();
-        int date = c.get(Calendar.DATE);
+        long date = c.get(Calendar.DATE);
 
         /*for (int i = 1; i <= numItems; i++) {
             bucketlist.add(new BucketItem("Item #" + ++lastItemId,"", 0.0, 0.0, date));
