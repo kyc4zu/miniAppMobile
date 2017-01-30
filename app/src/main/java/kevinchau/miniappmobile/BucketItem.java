@@ -11,9 +11,9 @@ public class BucketItem implements Serializable {
     private String mDescription;
     private double mLatitude;
     private double mLongitude;
-    private long mDate;
+    private String mDate;
 
-    public BucketItem(String name, String description, double latitude, double longitude, long date) {
+    public BucketItem(String name, String description, double latitude, double longitude, String date) {
 
         mName = name;
         mDescription = description;
@@ -47,7 +47,7 @@ public class BucketItem implements Serializable {
 
     }
 
-    public long getDate() {
+    public String getDate() {
 
         return mDate;
 
@@ -66,9 +66,9 @@ public class BucketItem implements Serializable {
             bucketlist.add(new BucketItem("Item #" + ++lastItemId,"", 0.0, 0.0, date));
         }*/
 
-        bucketlist.add(new BucketItem("Get the first Bodos ticket","Be the first person to order at Bodos on the Corner.", 0.0, 0.0, date));
-        bucketlist.add(new BucketItem("Apply for graduation","Make sure all major and minor requirements are fulfilled.", 0.0, 0.0, date));
-        bucketlist.add(new BucketItem("Visit Monticello","Visit the home of our founder.", 0.0, 0.0, date));
+        bucketlist.add(new BucketItem("Get the first Bodos ticket","Be the first person to order at Bodos on the Corner.", 0.0, 0.0, "2017-1-30"));
+        bucketlist.add(new BucketItem("Apply for graduation","Make sure all major and minor requirements are fulfilled.", 0.0, 0.0, "2017-1-30"));
+        bucketlist.add(new BucketItem("Visit Monticello","Visit the home of our founder.", 0.0, 0.0, "2017-1-30"));
 
         return bucketlist;
 

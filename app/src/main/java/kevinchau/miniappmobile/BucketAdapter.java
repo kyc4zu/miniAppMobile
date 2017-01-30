@@ -97,8 +97,7 @@ public class BucketAdapter extends
         TextView textView = viewHolder.nameTextView;
         TextView dateView = viewHolder.dateTextView;
         textView.setText(bucket.getName());
-        String formattedDate=new SimpleDateFormat("MMM d, yyyy").format(bucket.getDate());
-        dateView.setText("" + (bucket.getDate())); // fix this so that date is fixed right now it just gets current. see itemactivity calendarview
+        dateView.setText(bucket.getDate()); //
 
         /* if(!contact.isOnline()) {
             textView.setClickable(false);

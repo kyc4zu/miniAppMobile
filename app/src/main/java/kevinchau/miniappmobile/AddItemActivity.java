@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.Externalizable;
 import java.io.Serializable;
@@ -30,7 +31,8 @@ public class AddItemActivity extends AppCompatActivity implements Serializable {
     EditText longNum;
     CalendarView calendar;
     Button save;
-    long calDate;
+    String calDate;
+    long dateOld;
     //Creates objects for all the items in the layout
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,20 +40,19 @@ public class AddItemActivity extends AppCompatActivity implements Serializable {
         //sets layout view to the proper screen, and instantiates objects.
         setContentView(R.layout.itemactivity_main);
         save = (Button)findViewById(R.id.saveNewItemButton);
+        descField = (EditText)findViewById(R.id.descriptionText);
+        nameField = (EditText)findViewById(R.id.nameText);
+        latNum = (EditText)findViewById(R.id.latText);
+        longNum = (EditText)findViewById(R.id.longText);
+        calendar = (CalendarView)findViewById(R.id.calendarView);
         save.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                descField = (EditText)findViewById(R.id.descriptionText);
-                nameField = (EditText)findViewById(R.id.nameText);
-                latNum = (EditText)findViewById(R.id.latText);
-                longNum = (EditText)findViewById(R.id.longText);
-                calendar = (CalendarView)findViewById(R.id.calendarView);
-                calDate = calendar.getDate(); // fix this so that date is fixed right now it just gets current. see website pages
                 String value= latNum.getText().toString();
                 int latVal =Integer.parseInt(value);
                 String value2 = longNum.getText().toString();
                 int lonVal =Integer.parseInt(value2);
-                //turns calendar date and lat/lon values to integers/long
+                //turns  lat/lon values to integers
                 item = new BucketItem(nameField.getText().toString(), descField.getText().toString(), latVal, lonVal, calDate);
 
                 int resultCode = RESULT_OK;
@@ -60,6 +61,15 @@ public class AddItemActivity extends AppCompatActivity implements Serializable {
                 setResult(resultCode, addItemIntent);
                 finish();
 
+            }
+        });
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month,
+                                            int dayOfMonth) {
+                int correctMonth = month + 1;
+                calDate = String.valueOf(year + "-" + correctMonth + "-" + dayOfMonth);
             }
         });
 
