@@ -1,13 +1,5 @@
 package kevinchau.miniappmobile;
 
-import android.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,13 +7,8 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.io.Externalizable;
 import java.io.Serializable;
-import java.util.ArrayList;
-
-import static android.R.attr.name;
 
 public class AddItemActivity extends AppCompatActivity implements Serializable {
     BucketItem item;
@@ -56,7 +43,7 @@ public class AddItemActivity extends AppCompatActivity implements Serializable {
                 item = new BucketItem(nameField.getText().toString(), descField.getText().toString(), latVal, lonVal, calDate);
 
                 int resultCode = RESULT_OK;
-                Intent addItemIntent = new Intent(AddItemActivity.this, MainActivity.class);
+                Intent addItemIntent = new Intent(AddItemActivity.this, BucketListActivity.class);
                 addItemIntent.putExtra( "i" , item);
                 setResult(resultCode, addItemIntent);
                 finish();

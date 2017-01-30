@@ -55,7 +55,7 @@ public class BucketItem implements Serializable {
 
     private static int lastItemId = 3; //3 cause 3 items already in
 
-    public static ArrayList<BucketItem> createBucketList(int numItems) {
+    public static ArrayList<BucketItem> CreateInitialBucketList(int numItems) {
 
         ArrayList<BucketItem> bucketlist = new ArrayList<BucketItem>();
 

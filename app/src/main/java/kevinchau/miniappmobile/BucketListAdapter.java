@@ -8,14 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 // Create the basic adapter extending from RecyclerView.Adapter
 // Note that we specify the custom ViewHolder which gives us access to our views
 
-public class BucketAdapter extends
-        RecyclerView.Adapter<BucketAdapter.ViewHolder> implements Serializable {
+public class BucketListAdapter extends
+        RecyclerView.Adapter<BucketListAdapter.ViewHolder> implements Serializable {
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
@@ -53,7 +52,7 @@ public class BucketAdapter extends
     private Context mContext;
 
     // Pass in the bucket list array into the constructor
-    public BucketAdapter(Context context, List<BucketItem> bucketlist) {
+    public BucketListAdapter(Context context, List<BucketItem> bucketlist) {
 
         mBucketList = bucketlist;
         mContext = context;
@@ -70,7 +69,7 @@ public class BucketAdapter extends
     // Usually involves inflating a layout from XML and returning the holder
     @Override
 
-    public BucketAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BucketListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
 
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -88,7 +87,7 @@ public class BucketAdapter extends
     // Involves populating data into the item through holder
     @Override
 
-    public void onBindViewHolder(BucketAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(BucketListAdapter.ViewHolder viewHolder, int position) {
 
         // Get the data model based on position
         BucketItem bucket = mBucketList.get(position);

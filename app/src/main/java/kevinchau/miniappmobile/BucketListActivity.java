@@ -7,14 +7,11 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.support.v7.widget.Toolbar;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements Serializable{
+public class BucketListActivity extends AppCompatActivity implements Serializable{
 
     ArrayList<BucketItem> bucketlist;
     RecyclerView rvBucket;
@@ -28,10 +25,10 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
 
         // Initialize bucket list
-        bucketlist = BucketItem.createBucketList(4);
+        bucketlist = BucketItem.CreateInitialBucketList(4);
 
         // Create adapter passing in the sample user data
-        BucketAdapter adapter = new BucketAdapter(this, bucketlist);
+        BucketListAdapter adapter = new BucketListAdapter(this, bucketlist);
 
         // Attach the adapter to the recyclerview to populate items
         rvBucket.setAdapter(adapter);
@@ -46,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
             public void onClick(View v) {
 
-                    Intent addItemIntent = new Intent(MainActivity.this, AddItemActivity.class);
+                    Intent addItemIntent = new Intent(BucketListActivity.this, AddItemActivity.class);
                     startActivityForResult(addItemIntent, requestCode);
 
             }
