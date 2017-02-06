@@ -8,9 +8,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import static kevinchau.miniappmobile.BucketItem.sort;
 
 public class BucketListActivity extends AppCompatActivity implements Serializable {
 
@@ -86,5 +98,59 @@ public class BucketListActivity extends AppCompatActivity implements Serializabl
             }
         }
 
+    }
+    protected void reorder(View v){
+        boolean checked = ((CheckBox) v).isChecked();
+
+        if (checked) {
+
+            // determine related object
+            View item = findViewById(R.id.bucket_name);
+            String name = ((TextView) item).getText().toString();
+
+            BucketItem me = find(name, bucketlist);
+
+            me.setChecked(true);
+
+            boolean check = me.getChecked();
+
+            // test
+            Toast toast = Toast.makeText(getApplicationContext(), "" + check, Toast.LENGTH_SHORT);
+            toast.show();
+
+            rvBucket.getAdapter().notifyDataSetChanged();
+        }
+
+        else {
+
+            // determine related object
+            View item = findViewById(R.id.bucket_name);
+            String name = ((TextView) item).getText().toString();
+
+            BucketItem me = find(name, bucketlist);
+
+            me.setChecked(false);
+
+            boolean check = me.getChecked();
+
+            // test
+            Toast toast = Toast.makeText(getApplicationContext(), "" + check, Toast.LENGTH_SHORT);
+            toast.show();
+
+            sort(bucketlist);
+            rvBucket.getAdapter().notifyDataSetChanged();
+        }
+
+    }
+    public static BucketItem find(String name, ArrayList <BucketItem> bucketlist){
+
+        int length = bucketlist.size();
+        for(int i = 0; i < length; i++){
+            if(bucketlist.get(i).getName().equals(name)){
+                return bucketlist.get(i);
+            }
+        }
+
+        return null;
     }
 }

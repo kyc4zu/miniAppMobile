@@ -10,6 +10,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.io.Serializable;
 import java.util.List;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import static kevinchau.miniappmobile.BucketItem.sort;
 
 // Create the basic adapter extending from RecyclerView.Adapter
 // Note that we specify the custom ViewHolder which gives us access to our views
@@ -89,6 +100,7 @@ public class BucketListAdapter extends
     @Override
 
     public BucketListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mBucketList = sort((ArrayList)mBucketList);
         Context context = parent.getContext();
 
         LayoutInflater inflater = LayoutInflater.from(context);
