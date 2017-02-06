@@ -1,6 +1,7 @@
 package kevinchau.miniappmobile;
 
 
+import android.app.usage.NetworkStats;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +20,9 @@ public class BucketListAdapter extends
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
@@ -42,22 +45,38 @@ public class BucketListAdapter extends
             dateTextView = (TextView) itemView.findViewById(R.id.bucket_date);
 
         }
+        public void bind(final BucketItem item, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(item);
+                }
+            });
+        }
 
     }
 
     // Store a member variable for the bucket list
     private List<BucketItem> mBucketList;
 
+    public OnItemClickListener listener;
+
     // Store the context for easy access
     private Context mContext;
 
     // Pass in the bucket list array into the constructor
-    public BucketListAdapter(Context context, List<BucketItem> bucketlist) {
+    public BucketListAdapter(Context context, List<BucketItem> bucketlist, OnItemClickListener listener) {
 
         mBucketList = bucketlist;
         mContext = context;
+        this.listener = listener;
+
 
     }
+    public interface OnItemClickListener {
+        void onItemClick(BucketItem item);
+    }
+
+
 
     // Easy access to the context object in the recyclerview
     private Context getContext() {
@@ -96,7 +115,8 @@ public class BucketListAdapter extends
         TextView textView = viewHolder.nameTextView;
         TextView dateView = viewHolder.dateTextView;
         textView.setText(bucket.getName());
-        dateView.setText(bucket.getDate()); //
+        dateView.setText(bucket.getDate());
+        viewHolder.bind(mBucketList.get(position), listener);
 
         /* if(!contact.isOnline()) {
             textView.setClickable(false);
